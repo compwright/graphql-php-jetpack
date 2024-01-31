@@ -1,0 +1,57 @@
+{
+  "name": "compwright/graphql-php-jetpack",
+  "description": "Easily enable support for custom scalars and directives with https://github.com/webonyx/graphql-php",
+  "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "graphql",
+    "php",
+    "directive",
+    "scalar"
+  ],
+  "authors": [
+    {
+      "name": "Jonathon Hill",
+      "email": "jonathon@compwright.com",
+      "homepage": "https://compwright.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/compwright/graphql-php-jetpack/issues",
+    "source": "https://github.com/compwright/graphql-php-jetpack"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/compwright"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8",
+    "ext-json": "*",
+    "psr/container": "^1.1 || ^2",
+    "psr/log": "^1.1 || ^2 || ^3",
+    "webonyx/graphql-php": "^15.9"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.41",
+    "friendsofphp/php-cs-fixer": "^3.48",
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^9.6 || ^10.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Compwright\\GraphqlPhpJetpack\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Compwright\\GraphqlPhpJetpack\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  }
+}
