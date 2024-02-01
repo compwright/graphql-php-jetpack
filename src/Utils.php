@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Compwright\GraphqlPhpJetpack;
 
 use GraphQL\Error\Error;
-use GraphQL\Language\AST\ArgumentNode;
-use GraphQL\Language\AST\DirectiveNode;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Language\AST\ValueNode;
@@ -63,31 +61,5 @@ final class Utils
         }
 
         return (string) $value;
-    }
-
-    /**
-     * @param Node $node
-     *
-     * @return array<string, array<string, mixed>>
-     */
-    public static function readDirectives($node): array
-    {
-        $directives = [];
-
-        if (isset($node->directives)) {
-            /** @var DirectiveNode $directive */
-            foreach ($node->directives as $directive) {
-                $args = [];
-
-                /** @var ArgumentNode $arg */
-                foreach ($directive->arguments as $arg) {
-                    $args[$arg->name->value] = $arg->value->value ?? null;
-                }
-
-                $directives[$directive->name->value] = $args;
-            }
-        }
-
-        return $directives;
     }
 }
