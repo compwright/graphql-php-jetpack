@@ -30,6 +30,7 @@
     "php": "^7.4 || ^8",
     "ext-json": "*",
     "psr/container": "^1.1 || ^2",
+    "psr/http-message": "^1.1 || ^2.0",
     "psr/log": "^1.1 || ^2 || ^3",
     "webonyx/graphql-php": "^15.9"
   },
