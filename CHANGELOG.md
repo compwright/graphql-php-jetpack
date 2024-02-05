@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.0.0...v2.0.1) (2024-02-05)
+
+
+### Bug Fixes
+
+* **directives:** fixed an error when invoking the [@callback](https://github.com/callback) directive ([f90bdab](https://github.com/compwright/graphql-php-jetpack/commit/f90bdab27a8c7fa9f5615b9a610414c1878c2715))
+
 ## [2.0.0](https://github.com/compwright/graphql-php-jetpack/compare/v1.0.0...v2.0.0) (2024-02-01)
 
 
