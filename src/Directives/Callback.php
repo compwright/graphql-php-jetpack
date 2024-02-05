@@ -26,6 +26,6 @@ class Callback extends DirectiveType
             throw new BadFunctionCallException('Invalid fn argument');
         }
 
-        return ($args['callback'])($root);
+        return ($args['fn'])($root);
     }
 }
