@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.0.1...v2.1.0) (2024-02-06)
+
+
+### Features
+
+* add support for argument definition directives ([#4](https://github.com/compwright/graphql-php-jetpack/issues/4)) ([e3ddbe9](https://github.com/compwright/graphql-php-jetpack/commit/e3ddbe926d8911ac579875157fde48ea21646d64))
+
 ## [2.0.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.0.0...v2.0.1) (2024-02-05)
 
 
