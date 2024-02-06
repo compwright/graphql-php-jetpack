@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.0...v2.1.1) (2024-02-06)
+
+
+### Bug Fixes
+
+* correctly read directive arguments of type Object ([5629942](https://github.com/compwright/graphql-php-jetpack/commit/56299429f33223b8df3e487bd407e846e4500256))
+
 ## [2.1.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.0.1...v2.1.0) (2024-02-06)
 
 
