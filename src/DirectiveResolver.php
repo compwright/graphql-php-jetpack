@@ -47,21 +47,42 @@ class DirectiveResolver implements LoggerAwareInterface
      */
     public function __invoke($root, array $args, $context, ResolveInfo $info)
     {
+        // Execute ARGUMENT_DEFINITION directives pre-resolve
+        foreach ($info->fieldDefinition->args as $argDefinition) {
+            if (!$argDefinition->astNode) {
+                continue;
+            }
+            $argDirectives = $this->readDirectives($argDefinition->astNode);
+            foreach ($argDirectives as $directiveName => $directiveArgs) {
+                $argName = $argDefinition->name;
+                if (array_key_exists($directiveName, $this->handlers)) {
+                    $directiveHandler = $this->handlers[$directiveName];
+                    if (is_callable($directiveHandler)) {
+                        /** @var NamedType&callable $directiveHandler */
+                        $this->logger->debug('Executing @' . $directiveName . ' (' . get_class($directiveHandler) . ') on ' . $argName);
+                        $args[$argName] = $directiveHandler($args[$argName], $directiveArgs, $context, $info);
+                    } else {
+                        $this->logger->error('Found @' . $directiveName . ' directive on ' . $argName . ' but handler is not callable');
+                    }
+                } else {
+                    $this->logger->warning('Found @' . $directiveName . ' directive on ' . $argName . ' but no handler is registered');
+                }
+            }
+        }
+
         if (is_callable($this->originalResolver)) {
             $root = ($this->originalResolver)($root, $args, $context, $info);
         }
 
-        $directives = [];
-
+        // Execute FIELD_DEFINITION directives post-resolve
+        $fieldDirectives = [];
         if ($info->fieldDefinition->astNode) {
-            $directives = array_merge($directives, $this->readDirectives($info->fieldDefinition->astNode));
+            $fieldDirectives = array_merge($fieldDirectives, $this->readDirectives($info->fieldDefinition->astNode));
         }
-
         if ($info->fieldNodes[0]) {
-            $directives = array_merge($directives, $this->readDirectives($info->fieldNodes[0]));
+            $fieldDirectives = array_merge($fieldDirectives, $this->readDirectives($info->fieldNodes[0]));
         }
-
-        foreach ($directives as $directiveName => $directiveArgs) {
+        foreach ($fieldDirectives as $directiveName => $directiveArgs) {
             if (array_key_exists($directiveName, $this->handlers)) {
                 $directiveHandler = $this->handlers[$directiveName];
                 if (is_callable($directiveHandler)) {
