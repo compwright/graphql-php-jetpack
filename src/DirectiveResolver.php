@@ -7,6 +7,8 @@ namespace Compwright\GraphqlPhpJetpack;
 use GraphQL\Language\AST\ArgumentNode;
 use GraphQL\Language\AST\DirectiveNode;
 use GraphQL\Language\AST\Node;
+use GraphQL\Language\AST\ObjectFieldNode;
+use GraphQL\Language\AST\ObjectValueNode;
 use GraphQL\Type\Definition\NamedType;
 use GraphQL\Type\Definition\ResolveInfo;
 use Psr\Log\LoggerAwareInterface;
@@ -116,7 +118,9 @@ class DirectiveResolver implements LoggerAwareInterface
 
                 /** @var ArgumentNode $arg */
                 foreach ($directive->arguments as $arg) {
-                    $args[$arg->name->value] = $arg->value->value ?? null;
+                    $args[$arg->name->value] = $arg->value instanceof ObjectValueNode
+                        ? $this->readObjectValues($arg->value)
+                        : ($arg->value->value ?? null);
                 }
 
                 $directives[$directive->name->value] = $args;
@@ -124,5 +128,22 @@ class DirectiveResolver implements LoggerAwareInterface
         }
 
         return $directives;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function readObjectValues(ObjectValueNode $objectNode): array
+    {
+        $values = [];
+
+        foreach ($objectNode->fields as $fieldNode) {
+            /** @var ObjectFieldNode $fieldNode */
+            $values[$fieldNode->name->value] = $fieldNode->value instanceof ObjectValueNode
+                ? $this->readObjectValues($fieldNode->value)
+                : ($fieldNode->value->value ?? null);
+        }
+
+        return $values;
     }
 }
