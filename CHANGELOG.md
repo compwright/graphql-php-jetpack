@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.1...v2.1.2) (2024-02-13)
+
+
+### Bug Fixes
+
+* **scalars:** US State and Zipcode scalars should accept blank values ([b7b056b](https://github.com/compwright/graphql-php-jetpack/commit/b7b056bf4f146b32df401b51ee8518e3760e6a89))
+
 ## [2.1.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.0...v2.1.1) (2024-02-06)
 
 
