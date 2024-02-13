@@ -73,6 +73,6 @@ class UsState extends StringScalar
 
     protected function isValid(string $stringValue): bool
     {
-        return in_array($stringValue, self::STATES);
+        return strlen($stringValue) === 0 || in_array($stringValue, self::STATES);
     }
 }
