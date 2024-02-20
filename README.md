@@ -123,6 +123,14 @@ JSON responses will contain nested JSON strings.
 }
 ```
 
+### scalar Latitude
+
+Any number between -90 and 90 degrees.
+
+### scalar Longitude
+
+Any number between -180 and 180 degrees.
+
 ### scalar Mixed
 
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
@@ -132,6 +140,14 @@ dealing with really large numbers to be on the safe side.
 ### scalar Null
 
 Always `null`. Strictly validates value is non-null, no coercion.
+
+### scalar UsState
+
+Any valid two-character US State abbreviation.
+
+### scalar UsZipCode
+
+Five digits, optionally followed by a dash and four additional digits.
 
 ## Jetpack Directives
 

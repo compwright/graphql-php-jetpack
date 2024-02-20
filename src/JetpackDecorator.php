@@ -29,6 +29,8 @@ class JetpackDecorator implements LoggerAwareInterface
         $this->registerHandler(new Scalars\DateTimeTz());
         $this->registerHandler(new Scalars\Email());
         $this->registerHandler(new Scalars\JSON());
+        $this->registerHandler(new Scalars\Latitude());
+        $this->registerHandler(new Scalars\Longitude());
         $this->registerHandler(new Scalars\MixedScalar());
         $this->registerHandler(new Scalars\NullScalar());
         $this->registerHandler(new Scalars\UsState());
