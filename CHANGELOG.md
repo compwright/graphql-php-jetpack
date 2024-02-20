@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.2...v2.2.0) (2024-02-20)
+
+
+### Features
+
+* **scalars:** add Latitude and Longitude scalars ([360a095](https://github.com/compwright/graphql-php-jetpack/commit/360a095166a456e142f38184a91ad7be8f638e75))
+
 ## [2.1.2](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.1...v2.1.2) (2024-02-13)
 
 
