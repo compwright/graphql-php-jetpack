@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.2.0...v2.2.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **scalars:** email scalar should accept blank values ([117814e](https://github.com/compwright/graphql-php-jetpack/commit/117814e0eb969f3bc1bd393242c5988cbd155b4b))
+
 ## [2.2.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.1.2...v2.2.0) (2024-02-20)
 
 
