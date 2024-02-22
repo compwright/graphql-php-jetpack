@@ -11,6 +11,6 @@ class Email extends StringScalar
 
     protected function isValid(string $stringValue): bool
     {
-        return filter_var($stringValue, FILTER_VALIDATE_EMAIL) !== false;
+        return strlen($stringValue) === 0 || filter_var($stringValue, FILTER_VALIDATE_EMAIL) !== false;
     }
 }

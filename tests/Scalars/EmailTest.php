@@ -28,6 +28,13 @@ final class EmailTest extends TestCase
         $email->serialize('foo');
     }
 
+    public function testSerializePassesWhenEmailIsBlank(): void
+    {
+        $serializedResult = (new Email())->serialize('');
+
+        self::assertSame('', $serializedResult);
+    }
+
     public function testSerializePassesWhenEmailIsValid(): void
     {
         $serializedResult = (new Email())->serialize('foo@bar.com');
@@ -41,6 +48,14 @@ final class EmailTest extends TestCase
 
         $this->expectExceptionObject(new Error('The given string "foo" is not a valid Email.'));
         $email->parseValue('foo');
+    }
+
+    public function testParseValuePassesIfEmailIsBlank(): void
+    {
+        self::assertSame(
+            '',
+            (new Email())->parseValue('')
+        );
     }
 
     public function testParseValuePassesIfEmailIsValid(): void
@@ -58,6 +73,14 @@ final class EmailTest extends TestCase
 
         $this->expectExceptionObject(new Error('The given string "foo" is not a valid Email.'));
         $email->parseLiteral($stringValueNode);
+    }
+
+    public function testParseLiteralPassesIfEmailIsBlank(): void
+    {
+        self::assertSame(
+            '',
+            (new Email())->parseLiteral(new StringValueNode(['value' => '']))
+        );
     }
 
     public function testParseLiteralPassesIfEmailIsValid(): void
