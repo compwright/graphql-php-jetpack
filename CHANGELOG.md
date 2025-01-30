@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.2.1...v2.3.0) (2025-01-30)
+
+
+### Features
+
+* support PHP 8.4 ([eb69021](https://github.com/compwright/graphql-php-jetpack/commit/eb690210914b961eef90807b0a98a74bacdfa73d))
+
 ## [2.2.1](https://github.com/compwright/graphql-php-jetpack/compare/v2.2.0...v2.2.1) (2024-02-22)
 
 
