@@ -57,7 +57,7 @@ class Longitude extends ScalarType
         ));
     }
 
-    public function parseLiteral(Node $valueNode, array $variables = null): ?float
+    public function parseLiteral(Node $valueNode, ?array $variables = null): ?float
     {
         if (($valueNode instanceof FloatValueNode || $valueNode instanceof IntValueNode) && self::isValid($valueNode->value)) {
             return (float) $valueNode->value;

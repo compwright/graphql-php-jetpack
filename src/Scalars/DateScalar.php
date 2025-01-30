@@ -27,7 +27,7 @@ abstract class DateScalar extends ScalarType
         return $this->tryParsingDate($value, Error::class);
     }
 
-    public function parseLiteral($valueNode, array $variables = null): DateTimeInterface
+    public function parseLiteral($valueNode, ?array $variables = null): DateTimeInterface
     {
         if (! $valueNode instanceof StringValueNode) {
             throw new Error(

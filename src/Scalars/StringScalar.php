@@ -75,7 +75,7 @@ abstract class StringScalar extends ScalarType
         return $stringValue;
     }
 
-    public function parseLiteral($valueNode, array $variables = null): string
+    public function parseLiteral($valueNode, ?array $variables = null): string
     {
         $stringValue = Utils::extractStringFromLiteral($valueNode);
 
