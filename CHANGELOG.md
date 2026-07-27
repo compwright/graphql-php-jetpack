@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.3.0...v3.0.0) (2026-07-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drop support for PHP < 8.3
+
+### Bug Fixes
+
+* Fix lint warnings ([acb7220](https://github.com/compwright/graphql-php-jetpack/commit/acb7220b611b769ec35237fda8b46b65578b6019))
+* Support millisecond/nanosecond timestamp precision ([47012cc](https://github.com/compwright/graphql-php-jetpack/commit/47012cc8b44571967db5f204d0c01c9c4ae94754))
+
+
+### Miscellaneous Chores
+
+* Drop support for PHP &lt; 8.3 ([5002680](https://github.com/compwright/graphql-php-jetpack/commit/5002680f3a2364aa04e9f7cb4817914379c772ff))
+
 ## [2.3.0](https://github.com/compwright/graphql-php-jetpack/compare/v2.2.1...v2.3.0) (2025-01-30)
 
 
