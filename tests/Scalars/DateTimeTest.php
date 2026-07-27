@@ -23,5 +23,6 @@ final class DateTimeTest extends DateScalarTestBase
     public static function validDates(): iterable
     {
         yield ['2020-04-20 23:51:15', '2020-04-20T23:51:15.000000+00:00'];
+        yield ['2026-02-10 21:09:29.000', '2026-02-10T21:09:29.000000+00:00'];
     }
 }
