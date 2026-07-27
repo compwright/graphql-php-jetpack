@@ -13,28 +13,17 @@ use GraphQL\Type\Definition\NamedType;
 use GraphQL\Type\Definition\ResolveInfo;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
-/**
- * @property LoggerInterface $logger
- */
 class DirectiveResolver implements LoggerAwareInterface
 {
     use HandlerRegistryTrait;
     use LoggerAwareTrait;
 
-    /** @var ?callable */
-    protected $originalResolver;
-
     /**
      * @param ?callable $originalResolver
      */
-    public function __construct($originalResolver = null)
+    public function __construct(protected $originalResolver = null)
     {
-        $this->logger = new NullLogger();
-        $this->originalResolver = $originalResolver;
-
         $this->registerHandler(new Directives\Callback());
         $this->registerHandler(new Directives\Lowercase());
         $this->registerHandler(new Directives\Uppercase());
@@ -60,14 +49,20 @@ class DirectiveResolver implements LoggerAwareInterface
                 if (array_key_exists($directiveName, $this->handlers)) {
                     $directiveHandler = $this->handlers[$directiveName];
                     if (is_callable($directiveHandler)) {
-                        /** @var NamedType&callable $directiveHandler */
-                        $this->logger->debug('Executing @' . $directiveName . ' (' . get_class($directiveHandler) . ') on ' . $argName);
+                        if (isset($this->logger)) {
+                            /** @var NamedType&callable $directiveHandler */
+                            $this->logger->debug('Executing @' . $directiveName . ' (' . get_class($directiveHandler) . ') on ' . $argName);
+                        }
                         $args[$argName] = $directiveHandler($args[$argName], $directiveArgs, $context, $info);
                     } else {
-                        $this->logger->error('Found @' . $directiveName . ' directive on ' . $argName . ' but handler is not callable');
+                        if (isset($this->logger)) {
+                            $this->logger->error('Found @' . $directiveName . ' directive on ' . $argName . ' but handler is not callable');
+                        }
                     }
                 } else {
-                    $this->logger->warning('Found @' . $directiveName . ' directive on ' . $argName . ' but no handler is registered');
+                    if (isset($this->logger)) {
+                        $this->logger->warning('Found @' . $directiveName . ' directive on ' . $argName . ' but no handler is registered');
+                    }
                 }
             }
         }
@@ -88,14 +83,20 @@ class DirectiveResolver implements LoggerAwareInterface
             if (array_key_exists($directiveName, $this->handlers)) {
                 $directiveHandler = $this->handlers[$directiveName];
                 if (is_callable($directiveHandler)) {
-                    /** @var NamedType&callable $directiveHandler */
-                    $this->logger->debug('Executing @' . $directiveName . ' (' . get_class($directiveHandler) . ') on ' . $info->fieldName);
+                    if (isset($this->logger)) {
+                        /** @var NamedType&callable $directiveHandler */
+                        $this->logger->debug('Executing @' . $directiveName . ' (' . get_class($directiveHandler) . ') on ' . $info->fieldName);
+                    }
                     $root = $directiveHandler($root, $directiveArgs, $context, $info);
                 } else {
-                    $this->logger->error('Found @' . $directiveName . ' directive on ' . $info->fieldName . ' but handler is not callable');
+                    if (isset($this->logger)) {
+                        $this->logger->error('Found @' . $directiveName . ' directive on ' . $info->fieldName . ' but handler is not callable');
+                    }
                 }
             } else {
-                $this->logger->warning('Found @' . $directiveName . ' directive on ' . $info->fieldName . ' but no handler is registered');
+                if (isset($this->logger)) {
+                    $this->logger->warning('Found @' . $directiveName . ' directive on ' . $info->fieldName . ' but no handler is registered');
+                }
             }
         }
 

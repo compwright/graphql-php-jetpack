@@ -8,12 +8,7 @@ use GraphQL\Language\AST\ScalarTypeDefinitionNode;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
-/**
- * @property LoggerInterface $logger
- */
 class JetpackDecorator implements LoggerAwareInterface
 {
     use HandlerRegistryTrait;
@@ -21,8 +16,6 @@ class JetpackDecorator implements LoggerAwareInterface
 
     public function __construct()
     {
-        $this->logger = new NullLogger();
-
         $this->registerHandler(new Scalars\BigInt());
         $this->registerHandler(new Scalars\Date());
         $this->registerHandler(new Scalars\DateTime());
@@ -50,7 +43,9 @@ class JetpackDecorator implements LoggerAwareInterface
         if ($typeDefinition instanceof ScalarTypeDefinitionNode) {
             if (array_key_exists($name, $this->handlers)) {
                 $instance = $this->handlers[$name];
-                $this->logger->debug('Attaching scalar ' . $name . ' handler ' . get_class($instance));
+                if (isset($this->logger)) {
+                    $this->logger->debug('Attaching scalar ' . $name . ' handler ' . get_class($instance));
+                }
                 $config['serialize'] = [$instance, 'serialize'];
                 $config['parseValue'] = [$instance, 'parseValue'];
                 $config['parseLiteral'] = [$instance, 'parseLiteral'];
