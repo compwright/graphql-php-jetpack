@@ -9,6 +9,7 @@ use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\NodeKind;
 use GraphQL\Language\AST\StringValueNode;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class RegexTest extends TestCase
@@ -48,14 +49,14 @@ final class RegexTest extends TestCase
         ];
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testCreateNamedRegexClass(Regex $regex): void
     {
         self::assertSame('MyRegex', $regex->name);
         self::assertSame('Bar', $regex->description);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex): void
     {
         $object = new class () {};
@@ -64,7 +65,7 @@ final class RegexTest extends TestCase
         $regex->serialize($object);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex): void
     {
         $this->expectExceptionObject(new InvariantViolation(
@@ -74,7 +75,7 @@ final class RegexTest extends TestCase
         $regex->serialize('bar');
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testSerializePassesWhenRegexMatches(Regex $regex): void
     {
         $serializedResult = $regex->serialize('foo');
@@ -82,7 +83,7 @@ final class RegexTest extends TestCase
         self::assertSame('foo', $serializedResult);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testSerializePassesForStringableObject(Regex $regex): void
     {
         $serializedResult = $regex->serialize(
@@ -97,7 +98,7 @@ final class RegexTest extends TestCase
         self::assertSame('Contains foo right?', $serializedResult);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
         $object = new class () {};
@@ -107,7 +108,7 @@ final class RegexTest extends TestCase
         $regex->parseValue($object);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
@@ -115,7 +116,7 @@ final class RegexTest extends TestCase
         $regex->parseValue('');
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseValuePassesOnMatch(Regex $regex): void
     {
         self::assertSame(
@@ -124,7 +125,7 @@ final class RegexTest extends TestCase
         );
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
         $intValueNode = new IntValueNode([]);
@@ -134,7 +135,7 @@ final class RegexTest extends TestCase
         $regex->parseLiteral($intValueNode);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $stringValueNode = new StringValueNode(['value' => 'asdf']);
@@ -144,7 +145,7 @@ final class RegexTest extends TestCase
         $regex->parseLiteral($stringValueNode);
     }
 
-    /** @dataProvider regexClassProvider */
+    #[DataProvider('regexClassProvider')]
     public function testParseLiteralPassesOnMatch(Regex $regex): void
     {
         self::assertSame(

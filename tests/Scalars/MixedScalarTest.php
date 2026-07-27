@@ -9,6 +9,7 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class MixedScalarTest extends TestCase
@@ -44,9 +45,8 @@ final class MixedScalarTest extends TestCase
 
     /**
      * @param mixed $value
-     *
-     * @dataProvider singleValues
      */
+    #[DataProvider('singleValues')]
     public function testSerializePassesThroughAnything($value): void
     {
         self::assertSame(
@@ -59,9 +59,8 @@ final class MixedScalarTest extends TestCase
 
     /**
      * @param mixed $value
-     *
-     * @dataProvider singleValues
      */
+    #[DataProvider('singleValues')]
     public function testParseValuePassesThroughAnything($value): void
     {
         self::assertSame(
@@ -88,9 +87,8 @@ final class MixedScalarTest extends TestCase
 
     /**
      * @param mixed $expected
-     *
-     * @dataProvider literalToPhpMap
      */
+    #[DataProvider('literalToPhpMap')]
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
     {
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);

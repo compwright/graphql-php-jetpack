@@ -9,6 +9,7 @@ use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\NodeKind;
 use GraphQL\Language\AST\StringValueNode;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class StringScalarTest extends TestCase
@@ -54,14 +55,14 @@ final class StringScalarTest extends TestCase
         ];
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testCreateNamedStringScalarClass(StringScalar $stringScalar): void
     {
         self::assertSame('MyStringScalar', $stringScalar->name);
         self::assertSame('Bar', $stringScalar->description);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
         $object = new class () {};
@@ -70,14 +71,14 @@ final class StringScalarTest extends TestCase
         $stringScalar->serialize($object);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar): void
     {
         $this->expectExceptionObject(new InvariantViolation('The given string "bar" is not a valid MyStringScalar.'));
         $stringScalar->serialize('bar');
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testSerializePassesWhenStringIsValid(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize('foo');
@@ -85,7 +86,7 @@ final class StringScalarTest extends TestCase
         self::assertSame('foo', $serializedResult);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testSerializePassesForStringableObject(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize(
@@ -100,7 +101,7 @@ final class StringScalarTest extends TestCase
         self::assertSame('foo', $serializedResult);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $object = new class () {};
@@ -110,7 +111,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseValue($object);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
@@ -119,7 +120,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseValue('');
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
         self::assertSame(
@@ -128,7 +129,7 @@ final class StringScalarTest extends TestCase
         );
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $intValueNode = new IntValueNode([]);
@@ -138,7 +139,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseLiteral($intValueNode);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $stringValueNode = new StringValueNode(['value' => 'bar']);
@@ -147,7 +148,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseLiteral($stringValueNode);
     }
 
-    /** @dataProvider stringClassProvider */
+    #[DataProvider('stringClassProvider')]
     public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {
         self::assertSame(

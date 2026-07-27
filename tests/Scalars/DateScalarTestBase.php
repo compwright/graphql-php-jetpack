@@ -8,15 +8,15 @@ use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\StringValueNode;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class DateScalarTestBase extends TestCase
 {
     /**
      * @param mixed $value
-     *
-     * @dataProvider invalidDateValues
      */
+    #[DataProvider('invalidDateValues')]
     public function testThrowsIfSerializingInvalidDates($value): void
     {
         $dateScalar = $this->scalarInstance();
@@ -27,9 +27,8 @@ abstract class DateScalarTestBase extends TestCase
 
     /**
      * @param mixed $value
-     *
-     * @dataProvider invalidDateValues
      */
+    #[DataProvider('invalidDateValues')]
     public function testThrowsIfParseValueInvalidDate($value): void
     {
         $dateScalar = $this->scalarInstance();
@@ -51,7 +50,7 @@ abstract class DateScalarTestBase extends TestCase
         yield [''];
     }
 
-    /** @dataProvider validDates */
+    #[DataProvider('validDates')]
     public function testParsesValueString(string $value, string $expected): void
     {
         $parsedValue = $this->scalarInstance()->parseValue($value);
@@ -59,7 +58,7 @@ abstract class DateScalarTestBase extends TestCase
         self::assertSame($expected, $parsedValue->format('Y-m-d\TH:i:s.uP'));
     }
 
-    /** @dataProvider validDates */
+    #[DataProvider('validDates')]
     public function testParsesLiteral(string $value, string $expected): void
     {
         $dateLiteral = new StringValueNode(
